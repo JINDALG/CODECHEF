@@ -1,0 +1,38 @@
+#include <iostream>
+#include <stdio.h>
+#include <string.h>
+using namespace std;
+#define gc() getchar_unlocked()
+inline void write(long long int x){
+ 
+         register char buffor[35];
+         register int i=0;
+         do{
+               buffor[i++]=(x%10)+'0';
+               x/=10;
+            } while(x);
+           i--;
+            while(i>=0) putchar_unlocked(buffor[i--]);
+            putchar_unlocked('\n');
+       }
+       
+
+int main() {
+	int t,i,count;
+	char temp,str[4];
+	scanf("%d",&t);
+	while(t--){
+	    scanf("%s",str);
+	    temp=str[0];
+	    i=0;
+	    count=0;
+	    while(str[++i] != '\0'){
+	        if (str[i] == temp)
+	            count++;
+	       else 
+	            temp=str[i];
+	    }
+	    write(count);
+	}
+	return 0;
+}
