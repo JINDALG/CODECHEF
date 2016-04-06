@@ -30,11 +30,10 @@ def updatest(st,a,l,val,ind):
 	update(st,0,len(st)/2,diff,ind,0)
 
 
-def getsum(st,ss,se,qs,qe,si):
-	# If segment of this node is outside the given range
+def minquery(st,ss,se,qs,qe,si):
+	# If segment of this node is outside the given range return vary high value
 	if se<qs or ss>qe:
-		return 0 
-
+		return 999999
 	# If segment of this node is a part of given range, then return
  	# the sum of the segment
 	elif qs<=ss and qe>=se : 
@@ -42,7 +41,7 @@ def getsum(st,ss,se,qs,qe,si):
 	else :
 		# If a part of this segment overlaps with the given range
 		mid = getmid(ss,se)
-		return getsum(st,ss,mid,qs,qe,si*2+1) + getsum(st,mid+1,se,qs,qe,si*2+2)
+		return min(minquery(st,ss,mid,qs,qe,si*2+1),minquery(st,mid+1,se,qs,qe,si*2+2))
 
 
 # Function to construct segment tree from given array.
@@ -50,8 +49,8 @@ def getsum(st,ss,se,qs,qe,si):
 def create_tree(a,l):
 	# Maximum size of segment tree
 	size = 2*pow(2,int(math.ceil(math.log(l,2))))-1
-	# initialize segment tree array
-	st = [0]*size
+	# initialize segment tree array with all element have very high (infine) value
+	st = [99999999]*size
 	j = 0
 	# Fill the array element at leaf node level of segment tree
 	for i in xrange(size/2,size/2+l):
@@ -60,26 +59,27 @@ def create_tree(a,l):
 	i = size/2-1
 	# Set value of all internal node with the sum of left and right subtree
 	while i >= 0:
-		st[i] = st[2*i+1] + st[2*i+2]
+		st[i] = min(st[2*i+1],st[2*i+2])
 		i-=1
 	# return segment tree
 	return st
 
 # Driver program to test above functions
 def main():
-	a = [1,3,5,7,9,11]
+	a = [1,3,2,7,9,11,9,3]
 	l = len(a)
 	# Build segment tree from given array
 	st = create_tree(a[:],l)
-
-	# Print sum of values in array from index 1 to 3
-	print  "Sum of values in given range = %d" %getsum(st,0,len(st)/2,1,3,0)
+	# Print minimum value in arr[1..3]
+	print  "Minimum of values in given range = %d" %minquery(st,0,len(st)/2,1,3,0)
 
 	# Update: set arr[1] = 10 and update corresponding segment tree nodes
-	updatest(st,a,l,10,1)
+	updatest(st,a,l,1,2)
 	
-	# Find sum after the value is updated
-	print "Updated Sum of values in given range = %d" %getsum(st,0,len(st)/2,1,3,0)
+	# Print minimum value in arr[1..3]
+	print "Updated Minimum of values in given range = %d" %minquery(st,0,len(st)/2,1,3,0)
 
 
 main()
+
+# time complexity for uodate and minquery in logN
