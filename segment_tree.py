@@ -1,3 +1,5 @@
+# Article link- http://www.geeksforgeeks.org/segment-tree-set-1-sum-of-given-range/
+
 # Python program to show segment tree operations like construction, query
 # and update
 
@@ -67,16 +69,16 @@ def create_tree(a,l):
 
 # Driver program to test above functions
 def main():
-	a = [1,3,5,7,9,11]
-	l = len(a)
+	arr = [1,3,5,7,9,11]
+	n = len(a)
 	# Build segment tree from given array
-	st = create_tree(a[:],l)
+	st = create_tree(arr[:],n)
 
 	# Print sum of values in array from index 1 to 3
 	print  "Sum of values in given range = %d" %getsum(st,0,len(st)/2,1,3,0)
 
 	# Update: set arr[1] = 10 and update corresponding segment tree nodes
-	updatest(st,a,l,10,1)
+	updatest(st,arr,n,10,1)
 	
 	# Find sum after the value is updated
 	print "Updated Sum of values in given range = %d" %getsum(st,0,len(st)/2,1,3,0)

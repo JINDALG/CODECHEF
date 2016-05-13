@@ -1,3 +1,4 @@
+# Article link- http://www.geeksforgeeks.org/segment-tree-set-1-range-minimum-query/
 # Python program to show segment tree operations like construction, query
 # and update
 
@@ -71,15 +72,15 @@ def main():
 	# Build segment tree from given array
 	st = create_tree(a[:],l)
 	# Print minimum value in arr[1..3]
-	print  "Minimum of values in given range = %d" %minquery(st,0,len(st)/2,1,3,0)
+	print  "Minimum of values in given range = %d" %RMQ(st,len(st)/2,1,3)
 
 	# Update: set arr[1] = 10 and update corresponding segment tree nodes
 	updatest(st,a,l,1,2)
 	
 	# Print minimum value in arr[1..3]
-	print "Updated Minimum of values in given range = %d" %minquery(st,0,len(st)/2,1,3,0)
+	print "Updated Minimum of values in given range = %d" %RMQ(st,0,len(st)/2,1,3,0)
 
 
 main()
 
-# time complexity for uodate and minquery in logN
+# time complexity for update and minquery in logN
